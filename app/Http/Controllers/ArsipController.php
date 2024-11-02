@@ -72,7 +72,10 @@ class ArsipController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $kategori = Kategori::all();
+        $arsip = Arsip::with('kategori')->where('uuid', $id)->first();
+        
+        return response()->view("admin.arsip.detail",compact("kategori","arsip"));
     }
 
     /**

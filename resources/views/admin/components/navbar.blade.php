@@ -69,7 +69,7 @@
                                         stroke-width="2" d="m1 9 4-4-4-4" />
                                 </svg>
                                 <span
-                                    class="ms-1 text-sm font-medium text-gray-500 md:ms-2 dark:text-gray-400">{{ request()->route()->getName() }}</span>
+                                    class="ms-1 text-sm font-medium text-gray-500 md:ms-2 dark:text-gray-400">{{ ucfirst(explode('.', request()->route()->getName())[1]) }}</span>
                             </div>
                         </li>
                     </ol>
