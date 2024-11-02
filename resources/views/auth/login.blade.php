@@ -1,16 +1,27 @@
 @extends('auth.layout')
 @section('content')
 <div class="flex flex-col justify-center items-center h-screen">
-    <img src="{{asset('image/logo.png')}}" alt="logo-pupr" width="200" class="object-cover absolute -top-10">
+    <img src="{{asset('image/logo.png')}}" alt="logo-pupr" width="200" class="object-cover absolute top-3">
     <div
-        class="w-full max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
-        
-            <form class="space-y-6" action="#">
+        class="w-full max-w-sm p-4 bg-white rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
+            @if ($errors->any())
+                <div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+                    <span class="font-medium">Danger alert!</span>
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+            <form class="space-y-6" action="{{Route('login')}}" method="post">
+                @csrf
+                @method("post")
                 <div>
                     <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your
                         email</label>
-                    <input type="email" name="email" id="email"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                    <input type="text" name="email" id="email"
+                        class=" bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                         placeholder="name@company.com" required />
                 </div>
                 <div>

@@ -2,16 +2,25 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Arsip;
+use App\Models\Kategori;
 use Illuminate\Http\Request;
+use Ramsey\Uuid\Uuid;
 
 class ArsipController extends Controller
 {
+    private $folder = "data/arsip/";
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        return response()->view("admin.arsip.index");
+        $data = Arsip::with('kategori')->paginate(5);
+        $kategori = Kategori::all();
+        if($request->has('q')){
+           $data = Arsip::with('kategori')->where('judul','like','%'.$request->q.'%')->paginate(5);
+        }
+        return response()->view("admin.arsip.index",compact("kategori","data"));
     }
 
     /**
@@ -19,7 +28,8 @@ class ArsipController extends Controller
      */
     public function create()
     {
-        //
+        $kategori = Kategori::all();     
+        return response()->view("admin.arsip.create",compact("kategori"));  
     }
 
     /**
@@ -27,7 +37,26 @@ class ArsipController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'title' => 'required',
+            'file' => 'required|mimes:pdf,doc,docx,xls,xlsx|max:2048',
+            'kategori' => 'required',
+            'deskripsi' => 'required',
+        ]);
+
+        $file = $request->file('file');
+        $fileName = $file->hashName();
+        $file->move($this->folder, $fileName);
+
+        $data = [
+            'uuid' => Uuid::uuid4()->toString(),
+            'judul' => $request->title,
+            'file' => $fileName,
+            'kategori_id' => $request->kategori,
+            'keterangan' => $request->deskripsi
+        ];
+        $data = Arsip::create($data);
+        return redirect()->route('arsip.index')->with("success", "Data Berhasil Disimpan");
     }
 
     /**

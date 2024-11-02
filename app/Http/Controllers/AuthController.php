@@ -27,7 +27,20 @@ class AuthController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required'
+        ]);
+
+        $credentials = $request->only('email', 'password');
+
+        if (auth()->attempt($credentials)) {
+            return redirect()->route('dashboard')->with("success", "Login Berhasil");
+        }
+
+        return back()->withErrors([
+            'email' => 'The provided credentials do not match our records.',
+        ]);
     }
 
     /**
@@ -57,8 +70,10 @@ class AuthController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy()
     {
-        //
+        auth()->logout();
+        return redirect()->route("login");
+
     }
 }

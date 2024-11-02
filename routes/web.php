@@ -17,10 +17,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get("/",[AuthController::class,"index"]);
-
+Route::post("/",[AuthController::class,"store"])->name("login");
+Route::get("/logout",[AuthController::class,"destroy"])->name("logout");
 
 Route::prefix("account")->group(function () {
-    Route::get("/dashboard",[DashboardController::class,"index"])->name("dashboard");
-    Route::resource("arsip",ArsipController::class);
+    Route::middleware("auth")->group(function () {
+        Route::get("/dashboard",[DashboardController::class,"index"])->name("dashboard");
+        Route::resource("arsip",ArsipController::class);
+    });
 });
 
