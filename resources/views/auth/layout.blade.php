@@ -11,7 +11,7 @@
         <link rel="stylesheet" href="{{asset('style/index.css')}}">
         @vite(['resources/css/app.css','resources/js/app.js'])
     </head>
-    <body>
+    <body class="bg-slate-100">
         @yield('content')
         @vite('resources/js/flowbite.js')
     </body>

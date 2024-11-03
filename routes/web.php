@@ -3,6 +3,7 @@
 use App\Http\Controllers\ArsipController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,6 +25,7 @@ Route::prefix("account")->group(function () {
     Route::middleware("auth")->group(function () {
         Route::get("/dashboard",[DashboardController::class,"index"])->name("dashboard");
         Route::resource("arsip",ArsipController::class);
+        Route::resource("profile",ProfileController::class);
     });
 });
 

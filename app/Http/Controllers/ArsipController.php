@@ -64,7 +64,8 @@ class ArsipController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $arsip = Arsip::with('kategori')->where('uuid', $id)->first();
+        return response()->download($this->folder . $arsip->file);
     }
 
     /**
@@ -83,7 +84,46 @@ class ArsipController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $arsip = Arsip::findOrFail($id);
+        if($request->hasFile('file')){
+            $request->validate([
+                'title' => 'required',
+                'file' => 'required|mimes:pdf,doc,docx,xls,xlsx|max:2048',
+                'kategori' => 'required',
+                'deskripsi' => 'required',
+
+            ]);
+            if($arsip->file != null){
+                $path = $this->folder . $arsip->file;
+                if(file_exists($path)){
+                    unlink($path);
+                }
+            }
+            $file = $request->file('file');
+            $fileName = $file->hashName();
+            $file->move($this->folder, $fileName);
+            $data = [
+                'judul' => $request->title,
+                'file' => $fileName,
+                'kategori_id' => $request->kategori,
+                'keterangan' => $request->deskripsi
+            ];
+            $arsip->update($data);
+            return redirect()->route('arsip.index')->with("success", "Data Berhasil Di Updated");
+        }else{
+            $request->validate([
+                'title' => 'required',
+                'kategori' => 'required',
+                'deskripsi' => 'required',
+            ]);
+            $arsip->update([
+                'judul' => $request->title,
+                'kategori_id' => $request->kategori,
+                'keterangan' => $request->deskripsi
+            ]);
+            return redirect()->route('arsip.index')->with("success", "Data Berhasil Diupdate");
+            
+        }
     }
 
     /**
@@ -91,6 +131,14 @@ class ArsipController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $arsip = Arsip::findOrFail($id);
+        if($arsip->file != null){
+            $path = $this->folder . $arsip->file;
+            if(file_exists($path)){
+                unlink($path);
+            }
+        }
+        $arsip->delete();
+        return redirect()->route('arsip.index')->with("success", "Data Berhasil Dihapus");
     }
 }

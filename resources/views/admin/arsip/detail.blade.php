@@ -28,14 +28,14 @@
                 @endif
 
                 @if (request()->has('edit'))
-                    <form action="{{ route('arsip.store') }}" enctype="multipart/form-data" method="post">
+                    <form action="{{ route('arsip.update', $arsip->id) }}" enctype="multipart/form-data" method="post">
                         @csrf
-                        @method('post')
+                        @method('put')
                         <div class="mb-5">
                             <label for="base-input"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama
                                 Surat</label>
-                            <input type="text" name="title" id="base-input" placeholder="Masukan Nama Surat"
+                            <input type="text" name="title" value="{{$arsip->judul}}" id="base-input" placeholder="Masukan Nama Surat"
                                 name="file_name"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                         </div>
@@ -47,7 +47,7 @@
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                 <option selected>Pilih Kategori Arsip</option>
                                 @foreach ($kategori as $item)
-                                    <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                    <option value="{{ $item->id }}" {{ $item->id == $arsip->id ? 'selected' : '' }}>{{ $item->name }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -56,7 +56,7 @@
                                 Deskripsi Arsip</label>
                             <textarea id="message" rows="4" name="deskripsi"
                                 class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                placeholder="Deskripsi Surat"></textarea>
+                                placeholder="Deskripsi Surat"> {{ $arsip->keterangan }} </textarea>
                         </div>
                         <div class="mb-5">
                             <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
