@@ -14,7 +14,6 @@
                 </div>
             </div>
             <div class="content mt-4 p-4">
-
                 @if ($errors->any())
                     <div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
                         role="alert">
@@ -26,7 +25,6 @@
                         </ul>
                     </div>
                 @endif
-
                 @if (request()->has('edit'))
                     <form action="{{ route('arsip.update', $arsip->id) }}" enctype="multipart/form-data" method="post">
                         @csrf
@@ -47,7 +45,7 @@
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                 <option selected>Pilih Kategori Arsip</option>
                                 @foreach ($kategori as $item)
-                                    <option value="{{ $item->id }}" {{ $item->id == $arsip->id ? 'selected' : '' }}>{{ $item->name }}</option>
+                                    <option value="{{ $item->id }}" {{ $item->id == $arsip->kategori_id ? 'selected' : '' }}>{{ $item->name }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -166,7 +164,6 @@
                                 </tr>
                             </tbody>
                         </table>
-                        
                     </div>
                 @endif
             </div>
