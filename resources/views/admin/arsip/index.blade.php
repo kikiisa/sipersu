@@ -186,8 +186,6 @@
         const deleteData = (id) => {
             let formDelete = document.getElementById('formDelete');
             formDelete.action = `/account/arsip/${id}`;
-            console.log(formDelete);
-            
         }
     </script>
 @endsection

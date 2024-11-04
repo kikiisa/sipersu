@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class ProfileController extends Controller
@@ -11,7 +12,8 @@ class ProfileController extends Controller
      */
     public function index()
     {
-        //
+        $user = User::find(auth()->user()->id);
+        return response()->view("admin.profile.index",compact("user"));
     }
 
     /**
@@ -19,7 +21,7 @@ class ProfileController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**
@@ -51,7 +53,33 @@ class ProfileController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $data = User::find($id);
+        if($request->password != null){
+            
+            $request->validate([
+                'name' => 'required',
+                'email' => 'required|email',
+                'password' => 'required',
+                'confirm' => 'required|same:password'
+            ]);
+            $data->update([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => bcrypt($request->password), 
+            ]);
+            return redirect()->route('profile.index')->with("success", "Data Berhasil Update");
+        }else{
+
+            $request->validate([
+                'name' => 'required',
+                'email' => 'required|email',
+            ]);
+            $data->update([
+                'name' => $request->name,
+                'email' => $request->email,
+            ]);
+            return redirect()->route('profile.index')->with("success", "Data Berhasil Update");
+        }
     }
 
     /**
