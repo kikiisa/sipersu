@@ -1,4 +1,4 @@
-@extends('admin.layout', ['title' => 'Arsip'])
+@extends('admin.layout', ['title' => 'Kategori'])
 @section('content')
     <main class="flex flex-col items-center justify-center gap-4">
         <div class="lg:w-1/2 md:1/2 w-full p-2">
@@ -10,27 +10,15 @@
                             d="M3.375 19.5h17.25m-17.25 0a1.125 1.125 0 0 1-1.125-1.125M3.375 19.5h7.5c.621 0 1.125-.504 1.125-1.125m-9.75 0V5.625m0 12.75v-1.5c0-.621.504-1.125 1.125-1.125m18.375 2.625V5.625m0 12.75c0 .621-.504 1.125-1.125 1.125m1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125m0 3.75h-7.5A1.125 1.125 0 0 1 12 18.375m9.75-12.75c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125m19.5 0v1.5c0 .621-.504 1.125-1.125 1.125M2.25 5.625v1.5c0 .621.504 1.125 1.125 1.125m0 0h17.25m-17.25 0h7.5c.621 0 1.125.504 1.125 1.125M3.375 8.25c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125m17.25-3.75h-7.5c-.621 0-1.125.504-1.125 1.125m8.625-1.125c.621 0 1.125.504 1.125 1.125v1.5c0 .621-.504 1.125-1.125 1.125m-17.25 0h7.5m-7.5 0c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125M12 10.875v-1.5m0 1.5c0 .621-.504 1.125-1.125 1.125M12 10.875c0 .621.504 1.125 1.125 1.125m-2.25 0c.621 0 1.125.504 1.125 1.125M13.125 12h7.5m-7.5 0c-.621 0-1.125.504-1.125 1.125M20.625 12c.621 0 1.125.504 1.125 1.125v1.5c0 .621-.504 1.125-1.125 1.125m-17.25 0h7.5M12 14.625v-1.5m0 1.5c0 .621-.504 1.125-1.125 1.125M12 14.625c0 .621.504 1.125 1.125 1.125m-2.25 0c.621 0 1.125.504 1.125 1.125m0 1.5v-1.5m0 0c0-.621.504-1.125 1.125-1.125m0 0h7.5" />
                     </svg>
 
-                    <h1 class="font-bold">Arsip Surat</h1>
+                    <h1 class="font-bold">Kategori Surat</h1>
                 </div>
             </div>
             <div class="content mt-4">
-                @if (session()->has('success'))
-                    <div class="flex items-center p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400"
-                        role="alert">
-                        <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                            fill="currentColor" viewBox="0 0 20 20">
-                            <path
-                                d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
-                        </svg>
-                        <span class="sr-only">Info</span>
-                        <div>
-                            {{ session()->get('success') }}
-                        </div>
-                    </div>
-                @endif
-                <a href="{{ Route('arsip.create') }}"
-                    class="mb-5 mt-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Tambah
-                    Arsip</a>
+               @include('admin.components.notification')
+
+                <a href="{{ Route('kategori.create') }}"
+                    class="mb-5 mt-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                    Tambah Kategori</a>
 
                 <form class="mt-4 mb-4 mx-auto" method="GET">
                     <label for="default-search"
@@ -55,21 +43,19 @@
                     <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                             <tr>
-                                <th scope="col" class="px-6 py-3">
-                                    Nama File
-                                </th>
-                                <th scope="col" class=" py-3">
+                             
+                                <th scope="col" class=" p-5 py-3">
                                     Kategori
                                 </th>
-                                <th scope="col" class="px-6 py-3">Tipe File</th>
+                                
                                 <th>Aksi</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody class="p-4">
                             @if (count($data) === 0)
                                 <tr>
                                     <td colspan="4" class="px-6 py-4 text-center">
-                                        <div class="p-4 mb-4 text-sm text-red-800 rounded-lg dark:bg-gray-800 dark:text-red-400" role="alert">
+                                        <div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
                                             <span class="font-medium">Data Tidak Ditemukan!</span>
                                         </div>
                                     </td>
@@ -77,55 +63,25 @@
                             @else
                                 @foreach ($data as $fetch)
                                     <tr class="bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                      
                                         <th scope="row"
                                             class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                            {{ $fetch->judul }}
+                                            {{ $fetch->name }}
                                         </th>
-                                        <td>
-                                            {{ $fetch->kategori->name }}
-                                        </td>
-                                        <td class="px-6 py-4">
-                                            @php
-                                                $tipe = substr(strrchr($fetch->file, '.'), 1);
-                                            @endphp
-                                            @switch($tipe)
-                                                @case('pdf')
-                                                    <span
-                                                        class="inline-block px-2 py-1 font-semibold leading-tight text-white transform bg-red-600 rounded-full">PDF</span>
-                                                @break
-
-                                                @case('xlsx')
-                                                    <span
-                                                        class="inline-block px-2 py-1 font-semibold leading-tight text-white transform bg-green-600 rounded-full">XLSX</span>
-                                                @break
-
-                                                @case('docx')
-                                                    <span
-                                                        class="inline-block px-2 py-1 font-semibold leading-tight text-white transform bg-blue-600 rounded-full">DOCX</span>
-                                                @break
-
-                                                @default
-                                                    <span
-                                                        class="inline-block px-2 py-1 font-semibold leading-tight text-white transform bg-gray-600 rounded-full">{{ $tipe }}</span>
-                                            @endswitch
-                                        </td>
+                                      
                                         <td>
                                             <a href="javascript:void(0)" onclick="return deleteData({{ $fetch->id }})" data-modal-target="popup-modal" data-modal-toggle="popup-modal" class="inline-block px-2 py-1 font-semibold leading-tight text-white transform bg-red-600 rounded-full">
                                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="size-5">
                                                     <path fill-rule="evenodd" d="M8.75 1A2.75 2.75 0 0 0 6 3.75v.443c-.795.077-1.584.176-2.365.298a.75.75 0 1 0 .23 1.482l.149-.022.841 10.518A2.75 2.75 0 0 0 7.596 19h4.807a2.75 2.75 0 0 0 2.742-2.53l.841-10.52.149.023a.75.75 0 0 0 .23-1.482A41.03 41.03 0 0 0 14 4.193V3.75A2.75 2.75 0 0 0 11.25 1h-2.5ZM10 4c.84 0 1.673.025 2.5.075V3.75c0-.69-.56-1.25-1.25-1.25h-2.5c-.69 0-1.25.56-1.25 1.25v.325C8.327 4.025 9.16 4 10 4ZM8.58 7.72a.75.75 0 0 0-1.5.06l.3 7.5a.75.75 0 1 0 1.5-.06l-.3-7.5Zm4.34.06a.75.75 0 1 0-1.5-.06l-.3 7.5a.75.75 0 1 0 1.5.06l.3-7.5Z" clip-rule="evenodd" />
                                                   </svg>
                                             </a>
-                                            <a href="{{ route('arsip.show', $fetch->uuid) }}" class="inline-block px-2 py-1 font-semibold leading-tight text-white transform bg-blue-600 rounded-full">
+                                            <a href="{{ route('kategori.edit', $fetch->uuid) }}" class="inline-block px-2 py-1 font-semibold leading-tight text-white transform bg-yellow-300 rounded-full">
                                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="size-5">
-                                                    <path fill-rule="evenodd" d="M8 1a.75.75 0 0 1 .75.75V6h-1.5V1.75A.75.75 0 0 1 8 1Zm-.75 5v3.296l-.943-1.048a.75.75 0 1 0-1.114 1.004l2.25 2.5a.75.75 0 0 0 1.114 0l2.25-2.5a.75.75 0 0 0-1.114-1.004L8.75 9.296V6h2A2.25 2.25 0 0 1 13 8.25v4.5A2.25 2.25 0 0 1 10.75 15h-5.5A2.25 2.25 0 0 1 3 12.75v-4.5A2.25 2.25 0 0 1 5.25 6h2ZM7 16.75v-.25h3.75a3.75 3.75 0 0 0 3.75-3.75V10h.25A2.25 2.25 0 0 1 17 12.25v4.5A2.25 2.25 0 0 1 14.75 19h-5.5A2.25 2.25 0 0 1 7 16.75Z" clip-rule="evenodd" />
-                                                  </svg>                                                  
-                                                  
-                                            </a>
-                                            <a href="{{ route('arsip.edit', $fetch->uuid) }}" class="inline-block px-2 py-1 font-semibold leading-tight text-white transform bg-green-600 rounded-full">
-                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="size-5">
-                                                    <path d="M10 12.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z" />
-                                                    <path fill-rule="evenodd" d="M.664 10.59a1.651 1.651 0 0 1 0-1.186A10.004 10.004 0 0 1 10 3c4.257 0 7.893 2.66 9.336 6.41.147.381.146.804 0 1.186A10.004 10.004 0 0 1 10 17c-4.257 0-7.893-2.66-9.336-6.41ZM14 10a4 4 0 1 1-8 0 4 4 0 0 1 8 0Z" clip-rule="evenodd" />
+                                                    <path d="m5.433 13.917 1.262-3.155A4 4 0 0 1 7.58 9.42l6.92-6.918a2.121 2.121 0 0 1 3 3l-6.92 6.918c-.383.383-.84.685-1.343.886l-3.154 1.262a.5.5 0 0 1-.65-.65Z" />
+                                                    <path d="M3.5 5.75c0-.69.56-1.25 1.25-1.25H10A.75.75 0 0 0 10 3H4.75A2.75 2.75 0 0 0 2 5.75v9.5A2.75 2.75 0 0 0 4.75 18h9.5A2.75 2.75 0 0 0 17 15.25V10a.75.75 0 0 0-1.5 0v5.25c0 .69-.56 1.25-1.25 1.25h-9.5c-.69 0-1.25-.56-1.25-1.25v-9.5Z" />
                                                   </svg>
+                                                  
+                                                  
                                                                                        
                                             </a>
                                         </td>
@@ -171,7 +127,7 @@
                             <svg class="mx-auto mb-4 text-gray-400 w-12 h-12 dark:text-gray-200" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
                             </svg>
-                            <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Apakah anda yakin ingin menghapus data ini ?</h3>
+                            <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Apakah anda yakin ingin menghapus data ini ? </h3>
                             <button type="submit" href="#" id="deleteData" data-modal-hide="popup-modal" type="button" class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center">
                                 Ya, Hapus
                             </button>
@@ -185,7 +141,7 @@
     <script>
         const deleteData = (id) => {
             let formDelete = document.getElementById('formDelete');
-            formDelete.action = `/account/arsip/${id}`;
+            formDelete.action = `/account/kategori/${id}`;
         }
     </script>
 @endsection

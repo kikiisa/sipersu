@@ -1,4 +1,4 @@
-@extends('admin.layout')
+@extends('admin.layout', ['title' => 'Detail Arsip'])
 @section('content')
     <main class="flex flex-col items-center justify-center gap-4">
         <div class="lg:w-1/2 md:1/2 w-full p-2">
@@ -145,15 +145,22 @@
                                 <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                     <th scope="row"
                                         class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                        Diupdate Pada
+                                    </th>
+                                    <td class="px-6 py-4">
+                                        @if (Carbon\Carbon::parse($arsip->updated_at)->diffInDays() <= 5)
+                                            <span class="inline-block px-2 py-1 font-semibold leading-tight text-white transform bg-green-600 rounded-full">5 Hari Lalu</span>
+                                        @endif
+                                       
+                                    </td>
+                                </tr>
+                                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                                    <th scope="row"
+                                        class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                         Aksi
                                     </th>
                                     <td class="px-6 py-4">
-                                        <a href="{{ route('arsip.show', $arsip->id) }}" class="inline-block px-2 py-1 font-semibold leading-tight text-white transform bg-blue-600 rounded-full">
-                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="size-5">
-                                                <path fill-rule="evenodd" d="M8 1a.75.75 0 0 1 .75.75V6h-1.5V1.75A.75.75 0 0 1 8 1Zm-.75 5v3.296l-.943-1.048a.75.75 0 1 0-1.114 1.004l2.25 2.5a.75.75 0 0 0 1.114 0l2.25-2.5a.75.75 0 0 0-1.114-1.004L8.75 9.296V6h2A2.25 2.25 0 0 1 13 8.25v4.5A2.25 2.25 0 0 1 10.75 15h-5.5A2.25 2.25 0 0 1 3 12.75v-4.5A2.25 2.25 0 0 1 5.25 6h2ZM7 16.75v-.25h3.75a3.75 3.75 0 0 0 3.75-3.75V10h.25A2.25 2.25 0 0 1 17 12.25v4.5A2.25 2.25 0 0 1 14.75 19h-5.5A2.25 2.25 0 0 1 7 16.75Z" clip-rule="evenodd" />
-                                              </svg>                                                  
-                                              
-                                        </a>
+                                        
                                         <a href="?edit" class="inline-block px-2 py-1 font-semibold leading-tight text-white transform bg-yellow-300 rounded-full">
                                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="size-5">
                                                 <path d="m5.433 13.917 1.262-3.155A4 4 0 0 1 7.58 9.42l6.92-6.918a2.121 2.121 0 0 1 3 3l-6.92 6.918c-.383.383-.84.685-1.343.886l-3.154 1.262a.5.5 0 0 1-.65-.65Z" />

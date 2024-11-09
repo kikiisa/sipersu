@@ -1,4 +1,4 @@
-@extends('admin.layout')
+@extends('admin.layout', ['title' => 'Dashboard'])
 @section('content')
     @include('admin.components.menu')
     <main class="flex flex-col items-center justify-center gap-4 mt-4">
@@ -17,7 +17,7 @@
                 <div class=" bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6">
                     <div class="flex justify-between">
                         <div>
-                            <h5 class="leading-none text-3xl font-bold text-gray-900 dark:text-white pb-2">30 Surat</h5>
+                            <h5 class="leading-none text-3xl font-bold text-gray-900 dark:text-white pb-2">{{$data_bulan_ini}} Surat</h5>
                             <p class="text-base font-normal text-gray-500 dark:text-gray-400">Arsip Surat Bulan Ini</p>
                         </div>
                     </div>
@@ -25,7 +25,7 @@
                 <div class=" bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6">
                     <div class="flex justify-between">
                         <div>
-                            <h5 class="leading-none text-3xl font-bold text-gray-900 dark:text-white pb-2">32 Surat</h5>
+                            <h5 class="leading-none text-3xl font-bold text-gray-900 dark:text-white pb-2">{{$total_arsip}} Surat</h5>
                             <p class="text-base font-normal text-gray-500 dark:text-gray-400">Total Di Arsipkan</p>
                         </div>
                     </div>

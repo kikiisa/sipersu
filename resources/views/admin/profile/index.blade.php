@@ -1,4 +1,4 @@
-@extends('admin.layout')
+@extends('admin.layout',['title' => 'Profile'])
 @section('content')
     <main class="flex flex-col items-center justify-center gap-4">
         <div class="lg:w-1/2 md:1/2 w-full p-2">

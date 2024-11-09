@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Arsip;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -11,7 +12,9 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        return response()->view("admin.dashboard.index");
+        $data_bulan_ini = Arsip::whereMonth('created_at', date('m'))->count();
+        $total_arsip = Arsip::count();
+        return response()->view("admin.dashboard.index",compact("data_bulan_ini","total_arsip"));
     }
 
     /**

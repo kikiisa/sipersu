@@ -16,8 +16,8 @@ class KategoriSeeder extends Seeder
     {
        Kategori::create([
             "uuid" => Uuid::uuid4()->toString(),
-            "name" => "Laravel",
-            "slug" => "laravel", 
+            "name" => "default",
+            "slug" => "default", 
        ]);
 
     }
