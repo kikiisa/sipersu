@@ -85,10 +85,8 @@
                                             {{ $fetch->kategori->name }}
                                         </td>
                                         <td class="px-6 py-4">
-                                            @php
-                                                $tipe = substr(strrchr($fetch->file, '.'), 1);
-                                            @endphp
-                                            @switch($tipe)
+                                     
+                                            @switch($fetch->type)
                                                 @case('pdf')
                                                     <span
                                                         class="inline-block px-2 py-1 font-semibold leading-tight text-white transform bg-red-600 rounded-full">PDF</span>
@@ -106,7 +104,7 @@
 
                                                 @default
                                                     <span
-                                                        class="inline-block px-2 py-1 font-semibold leading-tight text-white transform bg-gray-600 rounded-full">{{ $tipe }}</span>
+                                                        class="inline-block px-2 py-1 font-semibold leading-tight text-white transform bg-gray-600 rounded-full">{{ $fetch->type }}</span>
                                             @endswitch
                                         </td>
                                         <td>

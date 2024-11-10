@@ -58,7 +58,7 @@
                     <div class="mb-5">
                         <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                             for="default_size">Upload File</label>
-                        <input name="file"
+                        <input required onchange="return getFileName()" id="default_size" name="file"
                             class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
                             id="default_size" type="file">
                         <small class="text-red-600">File harus berformat PDF|WORD|EXCEL dan tidak boleh lebih dari
@@ -70,4 +70,12 @@
             </div>
         </div>
     </main>
+    <script>
+        function getFileName() {
+            let typeName = document.getElementById('type');
+            let fileName = document.getElementById('default_size').files[0].name
+            let fileExtension = fileName.split('.').pop()
+            return typeName.value = fileExtension
+        }
+    </script>
 @endsection

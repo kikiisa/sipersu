@@ -52,6 +52,7 @@ class ArsipController extends Controller
             'uuid' => Uuid::uuid4()->toString(),
             'judul' => $request->title,
             'file' => $fileName,
+            'type' => $file->getClientOriginalExtension(),
             'kategori_id' => $request->kategori,
             'keterangan' => $request->deskripsi
         ];
@@ -91,6 +92,7 @@ class ArsipController extends Controller
                 'file' => 'required|mimes:pdf,doc,docx,xls,xlsx|max:2048',
                 'kategori' => 'required',
                 'deskripsi' => 'required',
+                
 
             ]);
             if($arsip->file != null){
@@ -106,7 +108,8 @@ class ArsipController extends Controller
                 'judul' => $request->title,
                 'file' => $fileName,
                 'kategori_id' => $request->kategori,
-                'keterangan' => $request->deskripsi
+                'keterangan' => $request->deskripsi,
+                'type' => $file->getClientOriginalExtension()
             ];
             $arsip->update($data);
             return redirect()->route('arsip.index')->with("success", "Data Berhasil Di Updated");

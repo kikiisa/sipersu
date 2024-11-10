@@ -12,9 +12,22 @@ class DashboardController extends Controller
      */
     public function index()
     {
+        $arsip = new Arsip();
         $data_bulan_ini = Arsip::whereMonth('created_at', date('m'))->count();
-        $total_arsip = Arsip::count();
-        return response()->view("admin.dashboard.index",compact("data_bulan_ini","total_arsip"));
+        $total_arsip = $arsip->count();
+        $pdf = $arsip->where('type','pdf')->count();
+        $doc = $arsip->where('type','docx')->count();
+        $xls = $arsip->where('type','xlsx')->count();
+        $pptx = $arsip->where('type','pptx')->count();
+
+        return response()->view("admin.dashboard.index",[
+            'data_bulan_ini' => $data_bulan_ini,
+            'total_arsip' => $total_arsip,
+            'pdf' => $pdf,
+            'doc' => $doc,
+            'xls' => $xls,
+            'pptx' => $pptx
+        ]);
     }
 
     /**

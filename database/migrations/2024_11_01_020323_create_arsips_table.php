@@ -16,6 +16,7 @@ return new class extends Migration
             $table->uuid("uuid");
             $table->string("judul");
             $table->string("file");
+            $table->string("type");
             $table->string("keterangan");
             $table->foreignId("kategori_id");            $table->timestamps();
         });
