@@ -1,8 +1,8 @@
 @extends('admin.layout', ['title' => 'Detail Arsip'])
 @section('content')
     <main class="flex flex-col items-center justify-center gap-4">
-        <div class="lg:w-1/2 md:1/2 w-full p-2">
-            <div class="title">
+        <div class="lg:w-1/2 md:1/2 w-full">
+            <div class="title ms-3">
                 <div class="flex flex-row gap-2">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="size-6">
@@ -13,7 +13,7 @@
                     <h1 class="font-bold">Detail Arsip</h1>
                 </div>
             </div>
-            <div class="content mt-4 p-4">
+            <div class="content mt-4 p-3">
                 @if ($errors->any())
                     <div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
                         role="alert">

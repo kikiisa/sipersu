@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,6 +29,8 @@ Route::prefix("account")->group(function () {
         Route::resource("arsip",ArsipController::class);
         Route::resource("profile",ProfileController::class);
         Route::resource("kategori",KategoriController::class);
+        Route::resource("user",UserController::class);
+        
     });
 });
 

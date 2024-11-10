@@ -5,10 +5,10 @@
             <div class="title ms-3">
                 <div class="flex flex-row gap-2">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="size-5">
-                        <path d="M10.362 1.093a.75.75 0 0 0-.724 0L2.523 5.018 10 9.143l7.477-4.125-7.115-3.925ZM18 6.443l-7.25 4v8.25l6.862-3.786A.75.75 0 0 0 18 14.25V6.443ZM9.25 18.693v-8.25l-7.25-4v7.807a.75.75 0 0 0 .388.657l6.862 3.786Z" />
+                        <path d="M10 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0ZM1.615 16.428a1.224 1.224 0 0 1-.569-1.175 6.002 6.002 0 0 1 11.908 0c.058.467-.172.92-.57 1.174A9.953 9.953 0 0 1 7 18a9.953 9.953 0 0 1-5.385-1.572ZM16.25 5.75a.75.75 0 0 0-1.5 0v2h-2a.75.75 0 0 0 0 1.5h2v2a.75.75 0 0 0 1.5 0v-2h2a.75.75 0 0 0 0-1.5h-2v-2Z" />
                       </svg>
                       
-                    <h1 class="font-bold">Kategori Surat</h1>
+                    <h1 class="font-bold">Manajemen Pengguna</h1>
                 </div>
             </div>
             <div class="content mt-4 p-3">
@@ -16,7 +16,7 @@
 
                 <a href="{{ Route('kategori.create') }}"
                     class="mb-5 mt-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                    Tambah Kategori</a>
+                    Tambah Pengguna</a>
 
                 <form class="mt-4 mb-4 mx-auto" method="GET">
                     <label for="default-search"
@@ -43,7 +43,13 @@
                             <tr>
                              
                                 <th scope="col" class=" p-5 py-3">
-                                    Kategori
+                                    No
+                                </th>
+                                <th scope="col" class=" p-5 py-3">
+                                    Nama
+                                </th>
+                                <th>
+                                    Role
                                 </th>
                                 
                                 <th>Aksi</th>
@@ -64,9 +70,16 @@
                                       
                                         <th scope="row"
                                             class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                            {{ $fetch->name }}
+                                           {{ $loop->iteration }}
                                         </th>
                                       
+                                        <th
+                                            class="px-4 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                            {{ $fetch->name }}
+                                        </th>
+                                        <td>
+                                            {{ $fetch->role }}
+                                        </td>
                                         <td>
                                             <a href="javascript:void(0)" onclick="return deleteData({{ $fetch->id }})" data-modal-target="popup-modal" data-modal-toggle="popup-modal" class="inline-block px-2 py-1 font-semibold leading-tight text-white transform bg-red-600 rounded-full">
                                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="size-5">
@@ -79,6 +92,13 @@
                                                     <path d="M3.5 5.75c0-.69.56-1.25 1.25-1.25H10A.75.75 0 0 0 10 3H4.75A2.75 2.75 0 0 0 2 5.75v9.5A2.75 2.75 0 0 0 4.75 18h9.5A2.75 2.75 0 0 0 17 15.25V10a.75.75 0 0 0-1.5 0v5.25c0 .69-.56 1.25-1.25 1.25h-9.5c-.69 0-1.25-.56-1.25-1.25v-9.5Z" />
                                                   </svg>
                                                   
+                                                  
+                                                                                       
+                                            </a>
+                                            <a href="{{ route('kategori.edit', $fetch->uuid) }}" class="inline-block px-2 py-1 font-semibold leading-tight text-white transform bg-slate-600 rounded-full">
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="size-5">
+                                                    <path fill-rule="evenodd" d="M15.312 11.424a5.5 5.5 0 0 1-9.201 2.466l-.312-.311h2.433a.75.75 0 0 0 0-1.5H3.989a.75.75 0 0 0-.75.75v4.242a.75.75 0 0 0 1.5 0v-2.43l.31.31a7 7 0 0 0 11.712-3.138.75.75 0 0 0-1.449-.39Zm1.23-3.723a.75.75 0 0 0 .219-.53V2.929a.75.75 0 0 0-1.5 0V5.36l-.31-.31A7 7 0 0 0 3.239 8.188a.75.75 0 1 0 1.448.389A5.5 5.5 0 0 1 13.89 6.11l.311.31h-2.432a.75.75 0 0 0 0 1.5h4.243a.75.75 0 0 0 .53-.219Z" clip-rule="evenodd" />
+                                                  </svg>
                                                   
                                                                                        
                                             </a>

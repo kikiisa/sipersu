@@ -1,8 +1,8 @@
 @extends('admin.layout',['title' => 'Profile'])
 @section('content')
     <main class="flex flex-col items-center justify-center gap-4">
-        <div class="lg:w-1/2 md:1/2 w-full p-2">
-            <div class="title">
+        <div class="lg:w-1/2 md:1/2 w-full">
+            <div class="title ms-3">
                 <div class="flex flex-row gap-2">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="size-5">
                         <path fill-rule="evenodd" d="M18 10a8 8 0 1 1-16 0 8 8 0 0 1 16 0Zm-5.5-2.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0ZM10 12a5.99 5.99 0 0 0-4.793 2.39A6.483 6.483 0 0 0 10 16.5a6.483 6.483 0 0 0 4.793-2.11A5.99 5.99 0 0 0 10 12Z" clip-rule="evenodd" />
@@ -10,7 +10,7 @@
                     <h1 class="font-bold">Profile Saya</h1>
                 </div>
             </div>
-            <div class="content mt-4 p-4">   
+            <div class="content mt-4 p-3">   
                 @if (session()->has('success'))
                 <div id="alert-3" class="flex items-center p-4 mb-4 text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert">
                     <svg class="flex-shrink-0 w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
