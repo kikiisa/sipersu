@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Arsip;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
@@ -20,6 +21,17 @@ class DashboardController extends Controller
         $xls = $arsip->where('type','xlsx')->count();
         $pptx = $arsip->where('type','pptx')->count();
 
+        if(Auth::user()->role == "pegawai")
+        {
+            return response()->view("users.dashboard",[
+                'pdf' => $pdf,
+                'doc' => $doc,
+                'xls' => $xls,
+                'pptx' => $pptx,
+                'arsip' => Arsip::with("kategori")->get(),
+            ]);
+        }
+
         return response()->view("admin.dashboard.index",[
             'data_bulan_ini' => $data_bulan_ini,
             'total_arsip' => $total_arsip,
@@ -28,6 +40,8 @@ class DashboardController extends Controller
             'xls' => $xls,
             'pptx' => $pptx
         ]);
+
+       
     }
 
     /**
