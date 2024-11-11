@@ -11,28 +11,33 @@ class DashboardController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
+        
         $arsip = new Arsip();
         $data_bulan_ini = Arsip::whereMonth('created_at', date('m'))->count();
         $total_arsip = $arsip->count();
-        $pdf = $arsip->where('type','pdf')->count();
-        $doc = $arsip->where('type','docx')->count();
-        $xls = $arsip->where('type','xlsx')->count();
-        $pptx = $arsip->where('type','pptx')->count();
+        $pdf = $arsip->where('type', 'pdf')->count();
+        $doc = $arsip->where('type', 'docx')->count();
+        $xls = $arsip->where('type', 'xlsx')->count();
+        $pptx = $arsip->where('type', 'pptx')->count();
 
-        if(Auth::user()->role == "pegawai")
-        {
-            return response()->view("users.dashboard",[
+
+        if (Auth::user()->role == "pegawai") {
+            $data = Arsip::with('kategori')->paginate(5);
+            if ($request->has('q')) {
+                $data = Arsip::with('kategori')->where('judul', 'like', '%' . $request->q . '%')->paginate(5);
+            }
+            return response()->view("users.dashboard", [
                 'pdf' => $pdf,
                 'doc' => $doc,
                 'xls' => $xls,
                 'pptx' => $pptx,
-                'arsip' => Arsip::with("kategori")->get(),
+                'arsip' => $data
             ]);
         }
 
-        return response()->view("admin.dashboard.index",[
+        return response()->view("admin.dashboard.index", [
             'data_bulan_ini' => $data_bulan_ini,
             'total_arsip' => $total_arsip,
             'pdf' => $pdf,
@@ -40,8 +45,6 @@ class DashboardController extends Controller
             'xls' => $xls,
             'pptx' => $pptx
         ]);
-
-       
     }
 
     /**
